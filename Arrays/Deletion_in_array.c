@@ -26,3 +26,10 @@ int Delete(struct Array *arr,int index)
  }
  return 0;
 }
+int main()
+{
+ struct Array arr1={{2,3,4,5,6},10,5};
+ printf("%d",Delete(&arr1,0));
+ Display(arr1);
+ return 0;
+}
