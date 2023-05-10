@@ -40,3 +40,33 @@ int Max(struct Array arr)
  }
  return max;
 }
+int Min(struct Array arr)
+{
+ int min=arr.A[0];
+ int i;
+ for(i=1;i<arr.length;i++)
+ {
+ if(arr.A[i]<min)
+ min=arr.A[i];
+ }
+ return min;
+}
+int Sum(struct Array arr)
+{
+ int s=0;
+ int i;
+ for(i=0;i<arr.length;i++)
+ s+=arr.A[i];
+ return s;
+}
+float Avg(struct Array arr)
+{
+ return (float)Sum(arr)/arr.length;
+}
+int main()
+{
+ struct Array arr1={{2,3,9,16,18,21,28,32,35},10,9};
+ printf("%d",Sum(arr1));
+ Display(arr1);
+ return 0;
+}
