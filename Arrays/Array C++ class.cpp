@@ -41,3 +41,33 @@ void Array<T>::Insert(int index,T x)
  if(index>=0 && index<=length)
  {
  for(int i=length-1;i>=index;i--)
+  A[i+1]=A[i];
+ A[index]=x;
+ length++;
+ }
+}
+template<class T>
+T Array<T>::Delete(int index)
+{
+ T x=0;
+ if(index>=0 && index<length)
+ {
+ x=A[index];
+ for(int i=index;i<length-1;i++)
+ A[i]=A[i+1];
+ length--;
+ }
+ return x;
+}
+int main()
+{
+ Array<char> arr(10);
+ 
+ arr.Insert(0,'a');
+ arr.Insert(1,'c');
+ arr.Insert(2,'d');
+ arr.Display();
+ cout<<arr.Delete(0)<<endl;
+ arr.Display();
+ return 0;
+}
