@@ -209,4 +209,163 @@ int Array::isSorted()
  if(A[i]>A[i+1])
  return 0;
  }
- ret
+ }void Array::Rearrange()
+{
+ int i,j;
+ i=0;
+ j= length-1;
+ 
+ while(i<j)
+ {
+ while( A[i]<0)i++;
+ while( A[j]>=0)j--;
+ if(i<j)swap(& A[i],& A[j]);
+ }
+ 
+}
+Array* Array::Merge(Array arr2)
+{
+ int i,j,k;
+ i=j=k=0;
+ 
+ Array *arr3=new Array(length+arr2.length);
+ 
+ while(i<length && j<arr2.length)
+ {
+ if(A[i]<arr2.A[j])
+ arr3->A[k++]=A[i++];
+ else
+ arr3->A[k++]=arr2.A[j++];
+ }
+ for(;i<length;i++)
+ arr3->A[k++]=A[i];
+ for(;j<arr2.length;j++)
+ arr3->A[k++]=arr2.A[j];
+ arr3->length=length+arr2.length;
+ 
+ return arr3;
+}
+Array* Array::Union(Array arr2){
+ int i,j,k;
+ i=j=k=0;
+ 
+ Array *arr3=new Array(length+arr2.length);
+ 
+ while(i<length && j<arr2.length)
+ {
+ if(A[i]<arr2.A[j])
+ arr3->A[k++]=A[i++];
+ else if(arr2.A[j]<A[i])
+ arr3->A[k++]=arr2.A[j++];
+ else
+ {
+ arr3->A[k++]=A[i++];
+ j++;
+ }
+ }
+ for(;i<length;i++)
+ arr3->A[k++]=A[i];
+ for(;j<arr2.length;j++)
+ arr3->A[k++]=arr2.A[j];
+ 
+ arr3->length=k;
+ 
+ return arr3;
+}
+Array* Array::Inter(Array arr2)
+{
+ int i,j,k;
+ i=j=k=0;
+ 
+ Array *arr3=new Array(length+arr2.length);
+ 
+ while(i<length && j<arr2.length)
+ {
+ if(A[i]<arr2.A[j]) i++;
+ else if(arr2.A[j]<A[i])
+ j++;
+ else if(A[i]==arr2.A[j])
+ {
+ arr3->A[k++]=A[i++];
+ j++;
+ }
+ }
+ 
+ arr3->length=k;
+ 
+ return arr3;
+}
+Array* Array::Diff(Array arr2)
+{
+ int i,j,k;
+ i=j=k=0;
+ 
+ Array *arr3=new Array(length+arr2.length);
+ 
+ while(i<length && j<arr2.length)
+ {
+ if(A[i]<arr2.A[j])
+ arr3->A[k++]=A[i++];
+ else if(arr2.A[j]<A[i])
+ j++;
+ else
+ {
+ i++;
+ j++;
+ }
+ }
+ for(;i<length;i++)
+ arr3->A[k++]=A[i];
+ 
+  arr3->length=k;
+ 
+ return arr3;
+}
+int main()
+{
+ Array *arr1;
+ int ch,sz;
+ int x,index;
+ 
+ cout<<"Enter Size of Array";
+ scanf("%d",&sz);
+ arr1=new Array(sz);
+ 
+ do
+ {
+ cout<<"\n\nMenu\n";
+ cout<<"1. Insert\n";
+ cout<<"2. Delete\n";
+ cout<<"3. Search\n";
+ cout<<"4. Sum\n";
+ cout<<"5. Display\n";
+ cout<<"6.Exit\n";
+ 
+ cout<<"enter you choice ";
+ cin>>ch;
+ 
+ switch(ch)
+ {
+ case 1: cout<<"Enter an element and 
+index ";
+ cin>>x>>index;
+ arr1->Insert(index,x);
+ break;
+ case 2: cout<<"Enter index ";
+ cin>>index;
+ x=arr1->Delete(index); cout<<"Deleted Element is"<<x;
+ break;
+ case 3:cout<<"Enter element to search 
+";
+ cin>>x;
+ index=arr1->LinearSearch(x);
+ cout<<"Element index "<<index;
+ break;
+ case 4:cout<<"Sum is "<<arr1->Sum();
+ break;
+ case 5:arr1->Display();
+ 
+ }
+ }while(ch<6);
+ return 0;
+}
